@@ -1,0 +1,156 @@
+.mainPage {
+  background-color: #18181b;
+  height: 100vh;
+  width: 100vw;
+  color: white;
+  position: relative;
+  font-family: "Open Sans", sans-serif;
+}
+.mainPage header {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10%;
+  border-bottom: 1px solid rgb(61, 61, 61);
+}
+.formBotHeader {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  color: white;
+  font-family: "Open Sans", sans-serif;
+}
+.formBotHeader img {
+  display: inline-block;
+}
+.formBotHeader {
+  display: flex;
+}
+.nameSpace {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid rgb(69, 68, 68);
+  padding: 10px 15px;
+  border-radius: 6px;
+}
+.folderBoxContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 17px;
+  padding: 30px 10%;
+}
+.folderBox {
+  background-color: #2a2a2d;
+  padding: 10px 23px;
+  border-radius: 7px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  border: 1px solid #18181b;
+  position: relative;
+}
+.activeBackground {
+  background-color: #191919;
+  border: 1px solid rgb(77, 76, 76);
+}
+.folderBox:hover {
+  background-color: #191919;
+  border: 1px solid rgb(77, 76, 76);
+  box-sizing: border-box;
+}
+.deleteButton {
+  color: #f55050;
+  position: absolute;
+  padding: 3px;
+  background-color: black;
+  font-size: 1.3rem;
+  border: 1.2px solid red;
+  border-radius: 50%;
+  top: -8px;
+  right: -4px;
+}
+.deleteButton:hover {
+  scale: 1.1;
+}
+.boxContainer {
+  display: flex;
+  gap: 10px;
+  padding: 20px 10%;
+}
+.box {
+  background-color: #1a5fff;
+  height: 270px;
+  width: 222px;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+.box:hover {
+  background-color: #034bf2;
+}
+
+/* add folder popup */
+
+.addFolderPopup {
+  position: absolute;
+  top: 21.5%;
+  left: 30%;
+  border: 1px solid rgb(70, 70, 70);
+  background-color: black;
+  padding: 1px 20px;
+  border-radius: 20px;
+  width: 400px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.addFolderPopup h1 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding-bottom: 20px;
+}
+.addFolderPopup input {
+  background-color: #1f1f23;
+  border-radius: 12px;
+  height: 50px;
+  color: #a1a1a1;
+  font-weight: 600;
+  outline: none;
+  border: none;
+}
+
+.cancelCreateBtn {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 10%;
+}
+.cancelCreateBtn button {
+  background-color: transparent;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+.stand {
+  font-size: 1.7rem;
+  color: rgb(64, 64, 64);
+}

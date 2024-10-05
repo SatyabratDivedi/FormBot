@@ -1,0 +1,164 @@
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: auto;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.chatBubble {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 300px;
+}
+
+.bot {
+  background-color: #f0f0f0;
+  align-self: flex-start;
+}
+
+.user {
+  align-self: flex-end;
+  background-color: #d1ffd6;
+}
+
+.userAnswer {
+  color: #333;
+}
+
+.inputForm {
+  margin-top: 10px;
+  display: flex;
+  align-items: end;
+}
+
+.inputBox {
+  padding: 8px;
+  overflow: hidden;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  color: black;
+  margin-right: -10px;
+  
+}
+
+.sendButton {
+  font-size: 1.2rem;
+  width: 34px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0084ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sendButton:hover {
+  background-color: #0073e6;
+}
+
+.typing {
+  display: flex;
+  justify-content: space-between;
+  width: 40px;
+}
+
+.typing span {
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: #333;
+  border-radius: 50%;
+  animation: typing 1s infinite ease-in-out;
+}
+
+.typing span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.imageQuestion {
+  max-width: 100%; /* Responsive */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
+@keyframes typing {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.finishContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.finishButton {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.finishButton:hover {
+  background-color: #218838;
+}
+
+/* Flower Animation Styles */
+.flowerAnimation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-inline: 10%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.flowerMessage {
+  font-size: 2rem;
+  color: #28a745;
+  font-weight: bold;
+  animation: popIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}

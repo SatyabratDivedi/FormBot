@@ -1,0 +1,88 @@
+.themeMainContainer {
+  display: flex;
+}
+.leftContainer {
+  width: 30%;
+  height: calc(100vh - 60px);
+  background-color: #18181b;
+  margin-top: 60px;
+}
+.leftContainer h3 {
+  text-align: center;
+  width: 100%;
+  padding: 23px;
+  border-bottom: 1px solid rgb(61, 61, 61);
+}
+.boxContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.boxContainer .box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 45px;
+  border-radius: 10px;
+  border: 1px solid rgb(101, 100, 100);
+  cursor: pointer;
+}
+.boxContainer .box img {
+  border-radius: 10px 10px 0 0;
+  height: 130px;
+}
+.boxContainer .box div {
+  padding: 0 20px;
+  transform: translateY(-10px);
+}
+
+/* right section */
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  padding: 40px 20px 0 90px;
+  margin-top: 60px;
+}
+.chatContainer img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+.welcomeSms {
+  font-size: 0.9rem;
+  font-weight: 200;
+  background-color: #f7f8ff;
+  color: black;
+  font-weight: 600;
+  max-width: fit-content;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.chatBubble {
+  position: relative;
+  background-color: #1a5fff;
+  padding: 11px 2px;
+  text-align: center;
+  border-radius: 6px;
+  margin-top: 10px;
+  font-size: 1rem;
+  width: 63px;
+}
+
+.chatBubble::after {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: #1a5fff;
+  top: -2.3px;
+  right: -2px;
+}

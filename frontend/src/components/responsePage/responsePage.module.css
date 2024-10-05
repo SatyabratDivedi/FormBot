@@ -1,0 +1,53 @@
+.responseMainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.boxContainer {
+  width: 60%;
+  display: flex;
+  gap: 19%;
+  padding: 20px;
+  margin-top: 60px;
+}
+.box {
+  display: flex;
+  justify-content: center;
+  height: 85px;
+  margin-block: 60px;
+  flex-direction: column;
+  padding: 0 0 0 10px;
+  border-radius: 10px;
+  background-color: rgb(67, 66, 66);
+}
+.box div {
+  font-weight: 600;
+  font-size: 1.3rem;
+  padding-inline: 10px;
+  min-width: 130px;
+}
+.box div:last-child {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+/* submissionContainer */
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  border: 1px solid #444;
+}
+th,
+td {
+  border: 1px solid #444;
+  padding: 8px;
+  text-align: left;
+}
+td {
+  word-wrap: break-word; 
+}
+td {
+  max-width: 200px;
+}

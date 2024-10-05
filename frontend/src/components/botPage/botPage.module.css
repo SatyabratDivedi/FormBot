@@ -1,0 +1,119 @@
+.mainContainer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 20px;
+}
+.leftChooseContainer {
+  background-color: #18181b;
+  width: 400px;
+  min-height: 87vh;
+  border: 1px solid #3f3e3e;
+  border-radius: 8px;
+  margin-top: 60px;
+}
+
+.bubblesBox {
+  padding: 50px 10px 5px 10px;
+}
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.box div {
+  width: 47%;
+  margin-top: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  border: 1px solid #2e2d2d;
+  padding: 6px 15px;
+  border-radius: 9px;
+  background-color: #1f1f23;
+  text-align: start;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.box .icon1 {
+  color: #4b83ff;
+  font-size: 1rem;
+}
+.box .iconGif {
+  color: #4b83ff;
+  font-size: 1.5rem;
+}
+.box .icon2 {
+  font-size: 1rem;
+  color: #ffa54c;
+}
+.box div:hover {
+  background-color: #242426;
+}
+/* right Container */
+
+.rightContainer {
+  width: 100%;
+  overflow-y: auto;
+  margin-top: 90px;
+}
+.startTxt {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 20px;
+  width: 300px;
+  font-weight: 600;
+  background-color: #18181b;
+  padding: 15px 26px;
+  border-radius: 16px;
+  margin-top: 15px;
+  position: relative;
+}
+.botBox {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  font-size: 20px;
+  width: 300px;
+  font-weight: 600;
+  background-color: #18181b;
+  padding: 15px 26px;
+  border-radius: 16px;
+  margin-top: 15px;
+  position: relative;
+}
+.botBox input {
+  background-color: rgb(34, 34, 34);
+  border: none;
+  outline: none;
+  font-size: 0.8rem;
+}
+.botBox .deleteBtn {
+  position: absolute;
+  top: -5px;
+  right: 0px;
+  color: #f82b60;
+  cursor: pointer;
+  font-size: 1rem;
+  background-color: rgb(67, 66, 66);
+  border-radius: 20px;
+  padding: 1px 5px;
+}
+.botBox .deleteBtn:hover {
+  background-color: rgb(47, 47, 47);
+}
+.userTxt {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: rgb(141, 140, 140);
+}

@@ -1,0 +1,106 @@
+.signUpFormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #18181b;
+  position: relative;
+}
+.backIcon {
+  color: #fff;
+  cursor: pointer;
+  position: absolute;
+  top: 10%;
+  left: 6%;
+}
+.tringleImg {
+  position: absolute;
+  left: 0;
+}
+.Ellipse1 {
+  position: absolute;
+  bottom: 0;
+  right: 22%;
+}
+.Ellipse2 {
+  position: absolute;
+  right: 0;
+  top: 20%;
+}
+
+.signUpForm {
+  background: #18181b;
+  padding: 40px;
+  color: white;
+  max-width: 400px;
+  width: 100%;
+}
+
+.signUpForm h2 {
+  margin-bottom: 20px;
+  
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-family: "Open Sans", sans-serif;
+}
+
+.formGroupBorder {
+  width: 100%;
+  /* padding: 10px; */
+  border-radius: 14px;
+  font-size: 1.3rem;
+  border: 1px solid #ccc;
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+}
+
+.borderError {
+  border: 2px solid red;
+}
+
+.error {
+  color: red;
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+  margin-top: 5px;
+}
+
+.signUpButton {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 14px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+
+.signUpButton:hover {
+  background-color: #0056b3;
+}
+
+.loginLink {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+}
+
+.loginLink a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.loginLink a:hover {
+  text-decoration: underline;
+}
