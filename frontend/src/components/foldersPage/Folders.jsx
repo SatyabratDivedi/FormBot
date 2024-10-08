@@ -99,11 +99,12 @@ const Folders = () => {
   const botArrFn = useCallback(() => {
     if (foldersArr) {
       const botArr = foldersArr?.filter((folder) => folder.folderName == params.folderName);
-      return botArr[0].allBots.map((bot) => bot.botName);
+      return botArr[0].allBots.map((bot) => bot);
     }
   }, [foldersArr, params.folderName]);
 
   useEffect(() => {
+    localStorage.setItem('storeBot', JSON.stringify({ botName: '', theme: 'light', botArr: [] }))
     botArrFn();
     dispatch(setBotUpdate({}));
   }, [botArrFn]);
@@ -156,9 +157,9 @@ const Folders = () => {
               <div style={{fontSize: "4rem", paddingBottom: "16px"}}>+</div>
               <div style={{fontSize: "19px", fontWeight: "400"}}>Create a typebot</div>
             </Link>
-            {botArrFn().map((botName) => (
-              <Link to={`/folder/${params.folderName}/bot/${botName}`} key={botName} className={style.box}>
-                <div style={{fontSize: "19px", fontWeight: "400"}}>{botName}</div>
+            {botArrFn().map((bot) => (
+              <Link to={`/folder/${params.folderName}/bot/${bot.botName}/${bot._id}`} key={bot.botName} className={style.box}>
+                <div style={{fontSize: "19px", fontWeight: "400"}}>{bot.botName}</div>
               </Link>
             ))}
           </div>

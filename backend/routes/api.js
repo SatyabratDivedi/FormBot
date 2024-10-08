@@ -5,6 +5,7 @@ const folderModel = require("../models/folderSchema"); // Adjust the path to you
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const botModel = require("../models/botSchema");
+const botResponseModel = require("../models/botResponseSchema");
 
 // Register API
 route.post("/register", async (req, res) => {
@@ -13,7 +14,7 @@ route.post("/register", async (req, res) => {
   const findExistUser = await userModel.findOne({email});
   if (!name || !email || !password || !confirmPassword) return res.status(400).json({msg: "All fields are required"});
   if (password !== confirmPassword) return res.status(400).json({msg: "Passwords must be same"});
-  if (findExistUser) return res.status(400).json({msg: "This email is already registered"});
+  if (findExistUser) return res.status(409).json({msg: "This email is already exist"});
 
   try {
     const hashPassword = await bcrypt.hash(password, 10);
@@ -61,7 +62,7 @@ route.post("/login", async (req, res) => {
   }
 });
 
-route.get("/user_details", checkAuth, (req, res) => {
+route.get("/isLoginCheck", checkAuth, (req, res) => {
   return res.status(200).json({msg: "You are authenticated", user: req.loginUser});
 });
 
@@ -90,9 +91,10 @@ route.post("/create_folder", checkAuth, async (req, res) => {
   console.log(findLoginUser);
   console.log(req.body.folderName);
   try {
+    const isFolderNameExist = await folderModel.findOne({whichUser: req.loginUser._id, folderName: req.body.folderName});
+    if (isFolderNameExist) return res.status(409).json({msg: "folder name already exist"});
     if (req.body.folderName !== "") {
       const newFolder = await new folderModel({folderName: req.body.folderName, whichUser: findLoginUser._id}).save();
-      console.log("newFolder: ", newFolder);
       findLoginUser.folders.push(newFolder._id);
       await findLoginUser.save();
     }
@@ -114,7 +116,7 @@ route.get("/get_folder_details", checkAuth, async (req, res) => {
   }
 });
 
-//get bot details API
+//get bot details by folder and bot name API
 route.get("/bot_details/:folderName/:botName", checkAuth, async (req, res) => {
   const {folderName, botName} = req.params;
   try {
@@ -128,15 +130,75 @@ route.get("/bot_details/:folderName/:botName", checkAuth, async (req, res) => {
     return res.status(500).json({msg: "Internal Server Error"});
   }
 });
+//get bot details by botId- API
+route.get("/bot_form_details/:botId", async (req, res) => {
+  try {
+    const findBot = await botModel.findById(req.params.botId);
+    if (!findBot) return res.status(404).json({msg: "bot not found"});
+    return res.status(200).json(findBot);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({msg: "Internal Server Error"});
+  }
+});
+
+//bot response save - API
+route.post("/bot_response_save/:botId", async (req, res) => {
+  try {
+    const findBot = await botModel.findById(req.params.botId);
+    if (!findBot) return res.status(404).json({msg: "bot not found"});
+    console.log("findBot: ", findBot);
+    const savedBotResponse = await new botResponseModel({botResponseArr: req.body.responses, whichBot: req.params.botId}).save();
+    console.log("savedBotResponse: ", savedBotResponse);
+    findBot.botResponse.push(savedBotResponse._id);
+    await findBot.save();
+    console.log("findBot: ", findBot);
+    return res.status(200).json({msg: "you response has been saved", formId:savedBotResponse._id});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({msg: "Internal Server Error"});
+  }
+});
+
+//send bot response API
+route.get("/get_bot_response/:botId", async (req, res) => {
+  try {
+    const findBotResponse = await botModel.findById(req.params.botId).populate("botResponse");
+    if (!findBotResponse) return res.status(404).json({msg: "bot not found"});
+    return res.status(200).json({msg: "response deliver success", botResponse: findBotResponse.botResponse});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({msg: "Internal Server Error"});
+  }
+});
 
 //bot update API
 route.patch("/bot_update/:botId", checkAuth, async (req, res) => {
-  console.log("paramId", req.params.botId);
-  console.log(req.body);
   try {
-    const findUpdatedBot = await botModel.findByIdAndUpdate(req.params.botId, req.body, {new: true});
-    if (!findUpdatedBot) return res.status(404).json({msg:"Bot not found"});
-    return res.status(200).json({msg:'Bot Updated Successfully', updatedBot:findUpdatedBot});
+    const findBot = await botModel.findById(req.params.botId);
+    if (!findBot) return res.status(404).json({msg: "Bot not found"});
+    if (findBot.botName !== req.body.botName) {
+      const isBotNameExist = await botModel.findOne({botName: req.body.botName});
+      if (isBotNameExist) return res.status(409).json({msg: "bot name already exist"});
+    }
+    const findUpdatedBot = await botModel.findByIdAndUpdate(findBot._id, req.body, {new: true});
+    return res.status(200).json({msg: "Bot Updated Successfully", updatedBot: findUpdatedBot});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({msg: "Internal Server Error"});
+  }
+});
+
+//delete bot and after bot delete that bot Id from folderModel API
+route.delete("/bot_delete/:botId", checkAuth, async (req, res) => {
+  try {
+    const findBot = await botModel.findByIdAndDelete(req.params.botId);
+    if (!findBot) return res.status(404).json({msg: "Bot not found"});
+    const findFolder = await folderModel.findOne({folderName: req.body.folderName, whichUser: req.loginUser._id});
+    console.log("findFolder: ", findFolder);
+    findFolder.allBots = findFolder.allBots.filter((botId) => botId.toString() !== req.params.botId);
+    await findFolder.save();
+    return res.status(200).json({msg: "Bot deleted Successfully"});
   } catch (error) {
     console.log(error);
     return res.status(500).json({msg: "Internal Server Error"});
@@ -162,12 +224,11 @@ route.delete("/delete_folder/:folderId", checkAuth, async (req, res) => {
 //save bot API
 route.post("/save_bot", checkAuth, async (req, res) => {
   const {data, folder} = req.body;
-  console.log(data);
-  console.log(folder);
   try {
     const findFolder = await folderModel.findOne({whichUser: req.loginUser._id, folderName: folder});
-    console.log("findFolder: ", findFolder);
     if (!findFolder) return res.status(404).json({msg: "folder not found"});
+    const isBotNameExist = await botModel.findOne({whichFolder: findFolder._id, botName: data.botName});
+    if (isBotNameExist) return res.status(409).json({msg: "bot name already exist"});
     const newBot = new botModel({
       botName: data.botName,
       theme: data.theme,
@@ -179,7 +240,6 @@ route.post("/save_bot", checkAuth, async (req, res) => {
     findFolder.allBots.push(newBot._id);
     await findFolder.save();
     console.log("saveBotInFolder", findFolder);
-
     return res.status(200).json({msg: "bot saved successfully"});
   } catch (error) {
     console.log(error);

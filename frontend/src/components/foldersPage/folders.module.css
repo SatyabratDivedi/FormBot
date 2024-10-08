@@ -1,6 +1,6 @@
 .mainPage {
   background-color: #18181b;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   color: white;
   position: relative;
@@ -83,13 +83,20 @@
 }
 .boxContainer {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
   gap: 10px;
   padding: 20px 10%;
 }
+@media screen and (max-width: 900px) {
+  .boxContainer {
+    justify-content: center;
+  }
+}
 .box {
   background-color: #1a5fff;
-  height: 270px;
-  width: 222px;
+  height: 240px;
+  min-width: 202px;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -108,7 +115,7 @@
 .addFolderPopup {
   position: absolute;
   top: 21.5%;
-  left: 30%;
+  left: 40%;
   border: 1px solid rgb(70, 70, 70);
   background-color: black;
   padding: 1px 20px;

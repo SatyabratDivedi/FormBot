@@ -1,12 +1,13 @@
 .mainContainer {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+  /* display: flex;
+  grid-template-columns: 1fr 2fr; */
   padding: 20px;
 }
 .leftChooseContainer {
   background-color: #18181b;
   width: 400px;
   min-height: 87vh;
+  position: fixed;
   border: 1px solid #3f3e3e;
   border-radius: 8px;
   margin-top: 60px;
@@ -62,22 +63,33 @@
 /* right Container */
 
 .rightContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   overflow-y: auto;
-  margin-top: 90px;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(31, 31, 35)rgb(31, 31, 35);
+  margin-top: 46px;
+  height: 89vh;
 }
 .startTxt {
   display: flex;
+  position:sticky;
+  top: 0;
   align-items: center;
+  justify-content: center;
   gap: 11px;
   font-size: 20px;
-  width: 300px;
+  width: 460px;
+  translate: 15%;
   font-weight: 600;
   background-color: #18181b;
   padding: 15px 26px;
   border-radius: 16px;
   margin-top: 15px;
-  position: relative;
+  z-index: 100;
+  /* position: relative; */
 }
 .botBox {
   display: flex;
@@ -113,7 +125,9 @@
   background-color: rgb(47, 47, 47);
 }
 .userTxt {
+  padding: 0;
   font-size: 0.7rem;
   font-weight: 400;
   color: rgb(141, 140, 140);
+  background-color:rgb(24, 24, 27) !important;
 }

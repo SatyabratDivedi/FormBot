@@ -24,12 +24,12 @@ const MainDashboard = () => {
 
   const fetchFolderFn = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/user_details", {
+      const res = await fetch("http://localhost:3000/api/isLoginCheck", {
         method: "GET",
         credentials: "include",
       });
       console.log(res.ok);
-      return setIsLogin(res.ok);
+      setIsLogin(res.ok);
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +66,7 @@ const MainDashboard = () => {
           <div className={style.left}>
             <img src={icon} alt="" />
             <div>FormBot</div>
-          </div> 
+          </div>
           <div className={style.right}>
             {!isLogin ? (
               <Link to={"/login"} className={`${style.signInBtn} `}>

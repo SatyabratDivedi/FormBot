@@ -2,9 +2,13 @@ const mongoose = require("mongoose");
 
 const botResponseSchema = new mongoose.Schema(
   {
-    category: String,
-    type: String,
-    value: String,
+    botResponseArr: [
+      {
+        type: {type: String},
+        category: {type: String},
+        value: {type: String},
+      },
+    ],
     whichBot: {
       type: mongoose.Schema.ObjectId,
       ref: "bot",

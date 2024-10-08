@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useCallback, useEffect, useState} from "react";
 import {MdOutlineTextsms} from "react-icons/md";
 import {CiImageOn} from "react-icons/ci";
@@ -12,21 +13,27 @@ import {FaRegStar} from "react-icons/fa";
 import {RiDeleteBin6Line} from "react-icons/ri";
 import flag from "./../../assets/flag.png";
 import style from "./botPage.module.css";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setBot} from "../../redux/botSlice";
 import Skeleton, {SkeletonTheme} from "react-loading-skeleton";
 import {setBotUpdate} from "../../redux/botUpdateSlice";
+import toast from "react-hot-toast";
 
 const BotPage = ({isBotSaved, skeleton, botDetails}) => {
+  console.log("isBotSaved: ", isBotSaved);
   const updateData = useSelector((store) => store?.botUpdateReducer?.updateData);
   console.log(updateData);
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const mainFolder = location.pathname.split("/")[2];
   let botName = decodeURI(location.pathname.split("/")[4]);
+  console.log("botName: ", botName);
   const localData = JSON.parse(localStorage.getItem("storeBot"));
+  console.log(localData);
   const [botArr, setBotArr] = useState(updateData.botArr);
+  console.log(botArr);
   const [botData, setBotData] = useState({botName: "", theme: "light", botArr});
 
   const fetchFolderFn = useCallback(async () => {
@@ -39,13 +46,16 @@ const BotPage = ({isBotSaved, skeleton, botDetails}) => {
       const result = await res.json();
       console.log(result);
       if (res.ok) {
-        console.log(updateData.botName)
-        console.log(botName)
+        console.log(updateData?.botName);
+        console.log(botName);
         if (Object.keys(updateData)?.length == 0) {
           setBotArr(result.botArr);
           console.log(result);
           dispatch(setBotUpdate(result));
         }
+      } else {
+        toast.error(result.msg);
+        navigate(`/folder/${mainFolder}`);
       }
     } catch (error) {
       console.log(error);
@@ -53,7 +63,7 @@ const BotPage = ({isBotSaved, skeleton, botDetails}) => {
   }, [mainFolder, botName]);
 
   useEffect(() => {
-    fetchFolderFn();
+    if (isBotSaved) fetchFolderFn();
   }, [fetchFolderFn]);
 
   const botClkHandler = (type, category) => {
@@ -76,7 +86,21 @@ const BotPage = ({isBotSaved, skeleton, botDetails}) => {
   };
 
   useEffect(() => {
-    if (localData && !isBotSaved) {
+    if (!isBotSaved) {
+      const data = {...botData, botArr};
+      data.botName = localData.botName || "";
+      console.log(data);
+      dispatch(setBot(data));
+    } else {
+      const updatedData = {...updateData, botArr};
+      console.log(updatedData);
+      dispatch(setBotUpdate(updatedData));
+    }
+  }, [botArr, botData]);
+
+  useEffect(() => {
+    console.log(localData);
+    if (!isBotSaved) {
       console.log(localData.botArr);
       setBotArr(localData.botArr || []);
       setBotData({
@@ -86,18 +110,6 @@ const BotPage = ({isBotSaved, skeleton, botDetails}) => {
       });
     }
   }, [mainFolder]);
-
-  useEffect(() => {
-    if (!isBotSaved) {
-      const data = {...botData, botArr};
-      data.botName = localData.botName;
-      dispatch(setBot(data));
-    } else {
-      const updatedData = {...updateData, botArr};
-      console.log(updatedData);
-      dispatch(setBotUpdate(updatedData));
-    }
-  }, [botArr, botData]);
 
   let occurrenceCounter = {};
   function countWithSequence(type, category) {
@@ -176,7 +188,7 @@ const BotPage = ({isBotSaved, skeleton, botDetails}) => {
                 {bot.category !== "Input" && (
                   <input autoFocus value={bot.value} onChange={(event) => botInputHandler(event, i)} placeholder={bot.type == "Text" ? "Enter text" : "Click to add link"} type="text" name="" id="" />
                 )}
-                {bot.category == "Input" && <div className={style.userTxt}>Hint : User will input a text on his form</div>}
+                {bot.category == "Input" && <input className={style.userTxt} type="text" autoFocus readOnly placeholder={`Note: User will input ${bot.type} ${bot.type == 'Phone'? "No. " : ''}on his form`} name="" id="" />}
               </div>
             ))
           )}

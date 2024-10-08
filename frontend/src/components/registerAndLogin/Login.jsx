@@ -32,7 +32,7 @@ const Login = () => {
       setErrors(validationErrors);
     } else {
       setErrors({});
-      const toastId = toast.loading("Loading....");
+      const toastId = toast.loading("Verifying....");
       try {
         const res = await fetch("http://localhost:3000/api/login", {
           method: "POST",

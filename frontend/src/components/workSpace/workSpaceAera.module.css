@@ -1,7 +1,7 @@
 .workSpaceMainContainer {
   background-color: #1f1f23;
-  height: 100vh;
   width: 100%;
+  min-height: 100vh;
   color: white;
   font-family: "Open Sans", sans-serif;
 }
@@ -48,6 +48,9 @@ header .center {
   text-decoration: none;
   color: white;
 }
+.navTxt:hover {
+  color: #7ea6ff;
+}
 .botText {
   color: #7ea6ff;
   border: 1px solid #7ea6ff;
@@ -58,27 +61,39 @@ header .right {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   font-size: 14px;
   font-weight: 600;
 }
-header .right .shareBtn {
-  background-color: #848890;
-  padding: 2px 11px;
-  border-radius: 6px;
+header .right .threeBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  outline: none;
 }
 header .right .saveBtn {
   background-color: #57ce82;
   padding: 2px 11px;
   border-radius: 6px;
   cursor: pointer;
+  border: none;
+  font-size: 1.05rem;
+}
+header .right .saveBtn:hover {
+  background-color: #04ff64;
 }
 header .right .updateBtn {
-  background-color: #eaef52;
+  background-color: #cdd24b;
   color: black;
   padding: 2px 11px;
   border-radius: 6px;
   cursor: pointer;
+  border: none;
+  font-size: 1.05rem;
+}
+header .right .updateBtn:hover {
+  background-color: #fbf709;
 }
 header .right .notUpdateBtn {
   background-color: #acaca7;
@@ -86,4 +101,30 @@ header .right .notUpdateBtn {
   padding: 2px 11px;
   border-radius: 6px;
   cursor: pointer;
+  border: none;
+  font-size: 1.05rem;
+}
+header .right .shareBtn {
+  background-color: #3686d2;
+  color: black;
+  padding: 2px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-size: 1.05rem;
+}
+header .right .shareBtn:hover {
+  background-color: #0a84ff;
+}
+header .right .deleteBtn {
+  background-color: #e34040;
+  color: rgb(255, 255, 255);
+  padding: 2px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-size: 1.05rem;
+}
+header .right .deleteBtn:hover {
+  background-color: #ff0000;
 }

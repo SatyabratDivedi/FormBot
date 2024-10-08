@@ -7,6 +7,7 @@
 .boxContainer {
   width: 60%;
   display: flex;
+  justify-content: center;
   gap: 19%;
   padding: 20px;
   margin-top: 60px;
@@ -14,10 +15,11 @@
 .box {
   display: flex;
   justify-content: center;
+  text-align: center;
+  align-items: center;
   height: 85px;
   margin-block: 60px;
   flex-direction: column;
-  padding: 0 0 0 10px;
   border-radius: 10px;
   background-color: rgb(67, 66, 66);
 }

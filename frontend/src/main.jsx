@@ -45,7 +45,7 @@ const router = createBrowserRouter([
         element: <WorkSpaceArea />,
       },
       {
-        path: "/folder/:folderName/bot/:botName",
+        path: "/folder/:folderName/bot/:botName/:botId",
         element: <WorkSpaceArea isBotSaved={true} />,
       },
       {
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
         element: <WorkSpaceArea />,
       },
       {
-        path: "/folder/:folderName/theme/:botName",
+        path: "/folder/:folderName/theme/:botName/:botId",
         element: <WorkSpaceArea isBotSaved={true} />,
       },
       {
@@ -61,11 +61,11 @@ const router = createBrowserRouter([
         element: <WorkSpaceArea />,
       },
       {
-        path: "/folder/:folderName/response/:botName",
+        path: "/folder/:folderName/response/:botName/:botId",
         element: <WorkSpaceArea isBotSaved={true} />,
       },
       {
-        path: "/share_bot",
+        path: "/share_bot/:botId",
         element: <ChatBotPage />,
       },
     ],

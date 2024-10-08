@@ -5,9 +5,9 @@ const botSchema = new mongoose.Schema({
   theme: String,
   botArr: [
     {
-      type: { type: String, required: true },
-      category: { type: String, required: true },
-      value: { type: String}
+      type: {type: String, required: true},
+      category: {type: String, required: true},
+      value: {type: String},
     },
   ],
   whichFolder: {
