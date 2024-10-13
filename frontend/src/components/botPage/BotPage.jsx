@@ -186,9 +186,20 @@ const BotPage = ({isBotSaved, skeleton, botDetails}) => {
                   <RiDeleteBin6Line />
                 </div>
                 {bot.category !== "Input" && (
-                  <input autoFocus value={bot.value} onChange={(event) => botInputHandler(event, i)} placeholder={bot.type == "Text" ? "Enter text" : "Click to add link"} type="text" name="" id="" />
+                  <textarea
+                    autoFocus
+                    style={{maxHeight:`${bot.value.length}px`}}
+                    value={bot.value}
+                    onChange={(event) => botInputHandler(event, i)}
+                    placeholder={bot.type == "Text" ? "Enter text" : "Click to add link"}
+                    type="text"
+                    name=""
+                    id=""
+                  ></textarea>
                 )}
-                {bot.category == "Input" && <input className={style.userTxt} type="text" autoFocus readOnly placeholder={`Note: User will input ${bot.type} ${bot.type == 'Phone'? "No. " : ''}on his form`} name="" id="" />}
+                {bot.category == "Input" && (
+                  <input className={style.userTxt} type="text" autoFocus readOnly placeholder={`Note: User will input ${bot.type} ${bot.type == "Phone" ? "No. " : ""}on his form`} name="" id="" />
+                )}
               </div>
             ))
           )}

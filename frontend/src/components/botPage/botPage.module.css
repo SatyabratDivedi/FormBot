@@ -89,7 +89,6 @@
   border-radius: 16px;
   margin-top: 15px;
   z-index: 100;
-  /* position: relative; */
 }
 .botBox {
   display: flex;
@@ -104,12 +103,19 @@
   margin-top: 15px;
   position: relative;
 }
-.botBox input {
+
+
+textarea {
   background-color: rgb(34, 34, 34);
   border: none;
-  outline: none;
-  font-size: 0.8rem;
+  width: 100%;
+  resize: none;
+  font-size: 16px;
+  box-sizing: border-box;
+  overflow: auto;
+  min-height: 40px;
 }
+
 .botBox .deleteBtn {
   position: absolute;
   top: -5px;
@@ -130,4 +136,8 @@
   font-weight: 400;
   color: rgb(141, 140, 140);
   background-color:rgb(24, 24, 27) !important;
+}
+
+.translateInput {
+  transform: translateX(130px);
 }

@@ -17,10 +17,10 @@ import {FaExternalLinkAlt} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import toast from "react-hot-toast";
 import {useEffect, useState} from "react";
-import "react-confirm-alert/src/react-confirm-alert.css";
 
 const MainDashboard = () => {
   const [isLogin, setIsLogin] = useState();
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const fetchFolderFn = async () => {
     try {
@@ -38,6 +38,14 @@ const MainDashboard = () => {
   useEffect(() => {
     fetchFolderFn();
   }, [isLogin]);
+
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+    setIsFormSubmitted(true);
+    setTimeout(() => {
+      setIsFormSubmitted(false);
+    }, 2000);
+  };
 
   const logoutHandler = async () => {
     try {
@@ -86,9 +94,11 @@ const MainDashboard = () => {
         <div className={style.hero}>
           <img src={rotateImg1} alt="" />
           <div className={style.heroTextArea}>
-            <h1 className={style.h1Text}>Build advanced chatbots visually</h1>
+            <h1 className={style.h1Text}>Replace you google form with advanced chatbots</h1>
             <p className={style.pText}>Typebot gives you powerful blocks to create unique chat experiences. Embed them anywhere on your web/mobile apps and start collecting results like magic.</p>
-            <button className={style.getStartedBtn}>Create a FormBot for free</button>
+            <Link to={"/folder/main"} className={style.getStartedBtn}>
+              Create a FormBot for free
+            </Link>
           </div>
           <img src={rotateImg2} alt="" />
         </div>
@@ -114,7 +124,11 @@ const MainDashboard = () => {
           </div>
           <div className={style.container}>
             <div className={style.formContainer}>
-              <form>
+              <div style={{width: "100%", height: "100%", display: isFormSubmitted ? "flex": 'none', justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
+                <div>🎉 Your Form has been submitted</div>
+                <div>But We will not connect you shortly, sorry 😜</div>
+              </div>
+              <form style={{display: isFormSubmitted && "none"}} onSubmit={formSubmitHandler}>
                 <label htmlFor="name">
                   Full name <span style={{color: "#FC8181"}}>*</span>
                 </label>
@@ -124,10 +138,10 @@ const MainDashboard = () => {
                 </label>
                 <input className={style.inp} type="email" id="email" name="email" placeholder="Email" required />
                 <label>
-                  What services are you interested in? <span style={{color: "#FC8181"}}>*</span>
+                  What services are you interested in?
                 </label>
                 <div>
-                  <input type="checkbox" id="website-dev" name="services" value="Website Dev" /> Website Dev
+                  <input type="checkbox" id="website-dev" name="services" value="Website Dev"/> Website Dev
                   <br />
                   <input type="checkbox" id="content-marketing" name="services" value="Content Marketing" /> Content Marketing
                   <br />
@@ -137,9 +151,9 @@ const MainDashboard = () => {
                   <br />
                 </div>
                 <label htmlFor="additional-info">
-                  Additional Information <span style={{color: "#FC8181"}}>*</span>
+                  Additional Information
                 </label>
-                <textarea style={{height: "80px"}} id="additional-info" placeholder="Additional Information" name="additional-info" required></textarea>
+                <textarea style={{height: "80px"}} id="additional-info" placeholder="Additional Information" name="additional-info"></textarea>
                 <button type="submit">Submit</button>
               </form>
             </div>
@@ -242,7 +256,9 @@ const MainDashboard = () => {
           <h3>
             Improve conversion and user engagement <br /> with FormBots
           </h3>
-          <button>Create a From</button>
+          <Link to={"/folder/main"} className={style.getStartedBtn}>
+            Create a From
+          </Link>
           <div className={style.freePlanTxt}>No trial. Generous free plan.</div>
           <img src={rotateImg2} alt="" />
         </div>
@@ -256,7 +272,7 @@ const MainDashboard = () => {
               <span role="img" aria-label="love">
                 ❤️
               </span>
-              by <br /> @cuvette
+              by <br /> @Satyabrat Divedi
             </p>
           </div>
           <div className={style.footerCenter}>

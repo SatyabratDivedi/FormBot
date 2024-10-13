@@ -47,6 +47,9 @@
   width: 70%;
   padding: 40px 20px 0 90px;
   margin-top: 60px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 .chatContainer img {
   width: 40px;

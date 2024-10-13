@@ -62,10 +62,6 @@ route.post("/login", async (req, res) => {
   }
 });
 
-route.get("/isLoginCheck", checkAuth, (req, res) => {
-  return res.status(200).json({msg: "You are authenticated", user: req.loginUser});
-});
-
 // Logout API
 route.post("/logout", checkAuth, (req, res) => {
   try {
@@ -130,6 +126,7 @@ route.get("/bot_details/:folderName/:botName", checkAuth, async (req, res) => {
     return res.status(500).json({msg: "Internal Server Error"});
   }
 });
+
 //get bot details by botId- API
 route.get("/bot_form_details/:botId", async (req, res) => {
   try {
@@ -142,70 +139,7 @@ route.get("/bot_form_details/:botId", async (req, res) => {
   }
 });
 
-//bot response save - API
-route.post("/bot_response_save/:botId", async (req, res) => {
-  try {
-    const findBot = await botModel.findById(req.params.botId);
-    if (!findBot) return res.status(404).json({msg: "bot not found"});
-    console.log("findBot: ", findBot);
-    const savedBotResponse = await new botResponseModel({botResponseArr: req.body.responses, whichBot: req.params.botId}).save();
-    console.log("savedBotResponse: ", savedBotResponse);
-    findBot.botResponse.push(savedBotResponse._id);
-    await findBot.save();
-    console.log("findBot: ", findBot);
-    return res.status(200).json({msg: "you response has been saved", formId:savedBotResponse._id});
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({msg: "Internal Server Error"});
-  }
-});
-
-//send bot response API
-route.get("/get_bot_response/:botId", async (req, res) => {
-  try {
-    const findBotResponse = await botModel.findById(req.params.botId).populate("botResponse");
-    if (!findBotResponse) return res.status(404).json({msg: "bot not found"});
-    return res.status(200).json({msg: "response deliver success", botResponse: findBotResponse.botResponse});
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({msg: "Internal Server Error"});
-  }
-});
-
-//bot update API
-route.patch("/bot_update/:botId", checkAuth, async (req, res) => {
-  try {
-    const findBot = await botModel.findById(req.params.botId);
-    if (!findBot) return res.status(404).json({msg: "Bot not found"});
-    if (findBot.botName !== req.body.botName) {
-      const isBotNameExist = await botModel.findOne({botName: req.body.botName});
-      if (isBotNameExist) return res.status(409).json({msg: "bot name already exist"});
-    }
-    const findUpdatedBot = await botModel.findByIdAndUpdate(findBot._id, req.body, {new: true});
-    return res.status(200).json({msg: "Bot Updated Successfully", updatedBot: findUpdatedBot});
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({msg: "Internal Server Error"});
-  }
-});
-
-//delete bot and after bot delete that bot Id from folderModel API
-route.delete("/bot_delete/:botId", checkAuth, async (req, res) => {
-  try {
-    const findBot = await botModel.findByIdAndDelete(req.params.botId);
-    if (!findBot) return res.status(404).json({msg: "Bot not found"});
-    const findFolder = await folderModel.findOne({folderName: req.body.folderName, whichUser: req.loginUser._id});
-    console.log("findFolder: ", findFolder);
-    findFolder.allBots = findFolder.allBots.filter((botId) => botId.toString() !== req.params.botId);
-    await findFolder.save();
-    return res.status(200).json({msg: "Bot deleted Successfully"});
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({msg: "Internal Server Error"});
-  }
-});
-
-//delete folder API
+//delete folder and after it would delete from user model also API
 route.delete("/delete_folder/:folderId", checkAuth, async (req, res) => {
   try {
     const deleteFolder = await folderModel.findOneAndDelete({_id: req.params.folderId});
@@ -247,6 +181,69 @@ route.post("/save_bot", checkAuth, async (req, res) => {
   }
 });
 
+//bot response save - API
+route.post("/bot_response_save/:botId", async (req, res) => {
+  try {
+    const findBot = await botModel.findById(req.params.botId);
+    if (!findBot) return res.status(404).json({msg: "bot not found"});
+    console.log("findBot: ", findBot);
+    const savedBotResponse = await new botResponseModel({botResponseArr: req.body.responses, whichBot: req.params.botId}).save();
+    console.log("savedBotResponse: ", savedBotResponse);
+    findBot.botResponse.push(savedBotResponse._id);
+    await findBot.save();
+    console.log("findBot: ", findBot);
+    return res.status(200).json({msg: "you response has been saved", formId:savedBotResponse._id});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({msg: "Internal Server Error"});
+  }
+});
+
+//bot update API
+route.patch("/bot_update/:botId", checkAuth, async (req, res) => {
+  try {
+    const findBot = await botModel.findById(req.params.botId);
+    if (!findBot) return res.status(404).json({msg: "Bot not found"});
+    if (findBot.botName !== req.body.botName) {
+      const isBotNameExist = await botModel.findOne({botName: req.body.botName});
+      if (isBotNameExist) return res.status(409).json({msg: "bot name already exist"});
+    }
+    const findUpdatedBot = await botModel.findByIdAndUpdate(findBot._id, req.body, {new: true});
+    return res.status(200).json({msg: "Bot Updated Successfully", updatedBot: findUpdatedBot});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({msg: "Internal Server Error"});
+  }
+});
+
+//delete bot and after bot delete that bot Id also deleted from folderModel API
+route.delete("/bot_delete/:botId", checkAuth, async (req, res) => {
+  try {
+    const findBot = await botModel.findByIdAndDelete(req.params.botId);
+    if (!findBot) return res.status(404).json({msg: "Bot not found"});
+    const findFolder = await folderModel.findOne({folderName: req.body.folderName, whichUser: req.loginUser._id});
+    console.log("findFolder: ", findFolder);
+    findFolder.allBots = findFolder.allBots.filter((botId) => botId.toString() !== req.params.botId);
+    await findFolder.save();
+    return res.status(200).json({msg: "Bot deleted Successfully"});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({msg: "Internal Server Error"});
+  }
+});
+
+//send bot response details API
+route.get("/get_bot_response/:botId", async (req, res) => {
+  try {
+    const findBotResponse = await botModel.findById(req.params.botId).populate("botResponse");
+    if (!findBotResponse) return res.status(404).json({msg: "bot not found"});
+    return res.status(200).json({msg: "response deliver success", botResponse: findBotResponse.botResponse});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({msg: "Internal Server Error"});
+  }
+});
+
 //check auth via jwt
 function checkAuth(req, res, next) {
   const token = req.cookies.tokenId;
@@ -260,5 +257,11 @@ function checkAuth(req, res, next) {
     return res.status(401).json({msg: "Unauthorized"});
   }
 }
+
+
+//check is login
+route.get("/isLoginCheck", checkAuth, (req, res) => {
+  return res.status(200).json({msg: "You are authenticated", user: req.loginUser});
+});
 
 module.exports = route;

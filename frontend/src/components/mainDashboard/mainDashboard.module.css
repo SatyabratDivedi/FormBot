@@ -62,6 +62,7 @@
 
 .hero {
   margin-block: 50px;
+  padding-inline: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,9 +83,10 @@
   font-weight: 700;
   background: linear-gradient(90deg, #4b83ff, #b794f4);
   -webkit-background-clip: text;
+   
   color: transparent;
   text-align: center;
-  line-height: 70px;
+  line-height: 90px;
 }
 .hero .pText {
   font-weight: 300;
@@ -93,15 +95,15 @@
   padding-inline: 60px;
   margin-block: 20px;
 }
-.hero .getStartedBtn {
+.getStartedBtn {
   background-color: #1a5fff;
   color: white;
   padding: 11px 24px;
-  border: none;
   cursor: pointer;
   border-radius: 4px;
   font-weight: 500;
   font-family: "Open Sans", sans-serif;
+  text-decoration: none;
 }
 
 /* Main Hero Image Section */

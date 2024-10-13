@@ -3,6 +3,9 @@ import style from "./themePage.module.css";
 import theme1 from "./../../assets/theme1.png";
 import theme2 from "./../../assets/theme2.png";
 import theme3 from "./../../assets/theme3.png";
+import whatsappDarkImg from "./../../assets/darkImg.webp";
+import whatsappLightImg from "./../../assets/lightWhatsappImg.png";
+import whatsappBlueImg from "./../../assets/whatsappImg.webp";
 import circleImg from "./../../assets/me-square.png.png";
 import {useDispatch, useSelector} from "react-redux";
 import {setBot} from "../../redux/botSlice";
@@ -65,7 +68,7 @@ const ThemePage = ({botDetails, isBotSaved}) => {
           </div>
         </div>
         {/* right section */}
-        <div className={style.chatContainer} style={{background: (theme == "dark" && "#171923") || (theme == "light" && "white") || (theme == "blue" && "#508c9b")}}>
+        <div className={style.chatContainer} style={{backgroundImage: (theme == "dark" && `url(${whatsappDarkImg})` ) || (theme == "light" && `url(${whatsappLightImg})`) || (theme == "blue" && `url(${whatsappBlueImg})`)}}>
           <div style={{display: "flex"}}>
             <img src={circleImg} alt="" />
             <h2 className={style.welcomeSms}>Hello</h2>

@@ -166,7 +166,7 @@ const WorkSpaceArea = ({isBotSaved}) => {
     <div className={style.workSpaceMainContainer}>
       <header>
         <div className={style.left}>
-          <input value={isBotSaved ? updateData.botName : data.botName} type="text" onChange={botNameHandler} placeholder="Enter Form Name" />
+          <input value={isBotSaved ? updateData.botName || botName : data.botName} type="text" onChange={botNameHandler} placeholder="Enter Form Name" />
         </div>
         <div className={style.center}>
           <NavLink to={isBotSaved ? `/folder/${folderName}/bot/${botName}/${botId}` : `/folder/${folderName}/bot`} className={({isActive}) => `${isActive ? style.botText : ""} ${style.navTxt}`}>
