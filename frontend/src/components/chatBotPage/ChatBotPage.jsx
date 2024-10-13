@@ -20,7 +20,7 @@ const ChatBot = () => {
   const saveBotResponseFn = async () => {
     console.log(param.botId);
     try {
-      const res = await fetch(`http://localhost:3000/api/bot_response_save/${param.botId}`, {
+      const res = await fetch(`https://form-bot-backend1.vercel.app/api/bot_response_save/${param.botId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const ChatBot = () => {
 
   const fetchBotDetails = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/bot_form_details/${param.botId}`);
+      const res = await fetch(`https://form-bot-backend1.vercel.app/api/bot_form_details/${param.botId}`);
       const result = await res.json();
       setBotArray(result?.botArr);
       setBotDetail(result);

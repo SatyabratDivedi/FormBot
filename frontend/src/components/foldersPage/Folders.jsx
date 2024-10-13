@@ -37,7 +37,7 @@ const Folders = () => {
 
   const fetchFolderFn = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/get_folder_details", {
+      const res = await fetch("https://form-bot-backend1.vercel.app/api/get_folder_details", {
         method: "GET",
         credentials: "include",
       });
@@ -67,7 +67,7 @@ const Folders = () => {
   const saveFolderFn = async () => {
     console.log("first");
     try {
-      await fetch("http://localhost:3000/api/create_folder", {
+      await fetch("https://form-bot-backend1.vercel.app/api/create_folder", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const Folders = () => {
 
   const deleteFolderHandler = async (folderId) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/delete_folder/${folderId}`, {
+      const res = await fetch(`https://form-bot-backend1.vercel.app/api/delete_folder/${folderId}`, {
         method: "DELETE",
         credentials: "include",
       });

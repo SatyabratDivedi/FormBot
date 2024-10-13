@@ -1,7 +1,7 @@
 const express = require("express");
 const route = express.Router();
-const userModel = require("../models/userSchema"); // Adjust the path to your user model
-const folderModel = require("../models/folderSchema"); // Adjust the path to your user model
+const userModel = require("../models/userSchema");
+const folderModel = require("../models/folderSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const botModel = require("../models/botSchema");
@@ -40,6 +40,7 @@ route.post("/login", async (req, res) => {
       res.cookie("tokenId", tokenId, {
         httpOnly: true,
         secure: true,
+        sameSite: 'None'
       });
       if (findFirstFolder.length == 0) {
         try {

@@ -15,7 +15,7 @@ const ResponsePage = () => {
 
   const fetchFolderFn = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/get_bot_response/${param.botId}/`, {
+      const res = await fetch(`https://form-bot-backend1.vercel.app/api/get_bot_response/${param.botId}/`, {
         method: "GET",
         credentials: "include",
       });

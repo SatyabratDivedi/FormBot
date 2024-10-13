@@ -38,7 +38,7 @@ const BotPage = ({isBotSaved, skeleton, botDetails}) => {
 
   const fetchFolderFn = useCallback(async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/bot_details/${mainFolder}/${botName}`, {
+      const res = await fetch(`https://form-bot-backend1.vercel.app/api/bot_details/${mainFolder}/${botName}`, {
         method: "GET",
         credentials: "include",
       });

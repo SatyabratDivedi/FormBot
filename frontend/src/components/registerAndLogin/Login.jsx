@@ -34,7 +34,7 @@ const Login = () => {
       setErrors({});
       const toastId = toast.loading("Verifying....");
       try {
-        const res = await fetch("http://localhost:3000/api/login", {
+        const res = await fetch("https://form-bot-backend1.vercel.app/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

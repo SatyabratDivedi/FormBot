@@ -24,7 +24,7 @@ const MainDashboard = () => {
 
   const fetchFolderFn = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/isLoginCheck", {
+      const res = await fetch("https://form-bot-backend1.vercel.app/api/isLoginCheck", {
         method: "GET",
         credentials: "include",
       });
@@ -49,7 +49,7 @@ const MainDashboard = () => {
 
   const logoutHandler = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/logout", {
+      const res = await fetch("https://form-bot-backend1.vercel.app/api/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

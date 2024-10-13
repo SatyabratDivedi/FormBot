@@ -35,7 +35,7 @@ const WorkSpaceArea = ({isBotSaved}) => {
     if (data.botArr?.length == 0) return toast.error("bot can't be blanked");
     const toastId = toast.loading("creating...");
     try {
-      const res = await fetch("http://localhost:3000/api/save_bot", {
+      const res = await fetch("https://form-bot-backend1.vercel.app/api/save_bot", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const WorkSpaceArea = ({isBotSaved}) => {
 
   const fetchFolderFn = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/get_folder_details", {
+      const res = await fetch("https://form-bot-backend1.vercel.app/api/get_folder_details", {
         method: "GET",
         credentials: "include",
       });
@@ -106,7 +106,7 @@ const WorkSpaceArea = ({isBotSaved}) => {
     if(!hasChanges()) return toast.error("not any changes", {duration: 700});
     const toastId = toast.loading("updating...");
     try {
-      const res = await fetch(`http://localhost:3000/api/bot_update/${botId}`, {
+      const res = await fetch(`https://form-bot-backend1.vercel.app/api/bot_update/${botId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -141,7 +141,7 @@ const WorkSpaceArea = ({isBotSaved}) => {
     console.log(updateData._id);
     const toastId = toast.loading("deleting...");
     try {
-      const res = await fetch(`http://localhost:3000/api/bot_delete/${botId}`, {
+      const res = await fetch(`https://form-bot-backend1.vercel.app/api/bot_delete/${botId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
