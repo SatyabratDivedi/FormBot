@@ -11,7 +11,7 @@ dotenv.config();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://mern-form-bot.vercel.app/",
+    origin: "https://mern-form-bot.vercel.app",
     credentials: true,
   })
 );
