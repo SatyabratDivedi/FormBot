@@ -40,7 +40,9 @@ route.post("/login", async (req, res) => {
       res.cookie("tokenId", tokenId, {
         httpOnly: true,
         secure: true,
-        sameSite: 'None'
+        sameSite: 'None',
+        domain: 'mern-form-bot.vercel.app',
+        path: '/',
       });
       if (findFirstFolder.length == 0) {
         try {
