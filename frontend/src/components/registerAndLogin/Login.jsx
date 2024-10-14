@@ -59,7 +59,7 @@ const Login = () => {
   return (
     <div className={style.signUpFormContainer}>
       <IoMdArrowBack size={28} className={style.backIcon} onClick={() => navigate('/')} />
-      {/* <img className={style.tringleImg} src={tringle} alt='' /> */}
+      <img className={style.tringleImg} src={tringle} alt='' />
       <img className={style.Ellipse1} src={Ellipse1} alt="" />
       <img className={style.Ellipse2} src={Ellipse2} alt="" />
       <form onSubmit={handleSubmit} className={style.signUpForm}>
