@@ -17,6 +17,7 @@ import {FaExternalLinkAlt} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import toast from "react-hot-toast";
 import {useEffect, useState} from "react";
+import Cookies from 'js-cookie';
 
 const MainDashboard = () => {
   const [isLogin, setIsLogin] = useState();
@@ -58,6 +59,7 @@ const MainDashboard = () => {
       });
       const result = await res.json();
       if (res.ok) {
+        Cookies.remove("tokenId");
         toast.success(result.msg, {duration: "100"});
         setIsLogin(false);
       }

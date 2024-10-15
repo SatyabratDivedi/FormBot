@@ -11,8 +11,7 @@ dotenv.config();
 app.use(cookieParser());
 app.use(
   cors({
-    // origin: "https://form-bot.skdivedi.me",
-    origin: "http://localhost:5173",
+    origin: "https://form-bot.skdivedi.me",
     credentials: true,
   })
 );

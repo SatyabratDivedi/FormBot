@@ -37,11 +37,6 @@ route.post("/login", async (req, res) => {
     if (isMatch) {
       const findFirstFolder = await folderModel.find({folderName: "main", whichUser: findExistUser._id});
       const tokenId = jwt.sign({user: findExistUser}, process.env.JWT_SECRET, {expiresIn: "24h"});
-      res.cookie("tokenId", tokenId, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'None',
-      });
       if (findFirstFolder.length == 0) {
         try {
           const newFolder = await new folderModel({folderName: "main", whichUser: findExistUser._id}).save();
@@ -53,7 +48,7 @@ route.post("/login", async (req, res) => {
           console.error("Error creating new folder or updating user:", error);
         }
       }
-      return res.status(200).json({msg: "Sign in successfully"});
+      return res.status(200).json({msg: "Sign in successfully", tokenId});
     } else {
       return res.status(400).json({msg: "Invalid password"});
     }
@@ -248,6 +243,7 @@ route.get("/get_bot_response/:botId", async (req, res) => {
 //check auth via jwt
 function checkAuth(req, res, next) {
   const token = req.cookies.tokenId;
+  console.log('token: ', token);
   if (!token) return res.status(401).json({msg: "Unauthorized"});
 
   try {

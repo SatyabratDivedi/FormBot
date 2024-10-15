@@ -6,14 +6,13 @@ import Ellipse2 from "./../../assets/Ellipse2.png";
 import Ellipse1 from "./../../assets/Ellipse1.png";
 import tringle from "./../../assets/tringle.png";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { storeIsLogin } from "../../redux/isLoginSlice";
+import {useDispatch} from "react-redux";
+import {storeIsLogin} from "../../redux/isLoginSlice";
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [email, setEmail] = useState("ss@ss");
-  // const [password, setPassword] = useState("ss");
   const [email, setEmail] = useState("satya@gmail.com");
   const [password, setPassword] = useState("satya");
   const [errors, setErrors] = useState({});
@@ -44,33 +43,48 @@ const Login = () => {
         });
         const result = await res.json();
         if (res.ok) {
+          Cookies.set('tokenId', result.tokenId, { expires: 24 });
           navigate("/");
-          dispatch(storeIsLogin(true))
+          dispatch(storeIsLogin(true));
           toast.success(result.msg, {id: toastId});
         } else {
           toast.error(result.msg, {id: toastId});
         }
       } catch (error) {
-        toast.error(error.message, { id: toastId });
+        toast.error(error.message, {id: toastId});
       }
     }
   };
 
   return (
     <div className={style.signUpFormContainer}>
-      <IoMdArrowBack size={28} className={style.backIcon} onClick={() => navigate('/')} />
-      <img className={style.tringleImg} src={tringle} alt='' />
+      <IoMdArrowBack size={28} className={style.backIcon} onClick={() => navigate("/")} />
+      <img className={style.tringleImg} src={tringle} alt="" />
       <img className={style.Ellipse1} src={Ellipse1} alt="" />
       <img className={style.Ellipse2} src={Ellipse2} alt="" />
       <form onSubmit={handleSubmit} className={style.signUpForm}>
         <div className={style.formGroup}>
           <label htmlFor="email">Email</label>
-          <input type="email" placeholder="Enter your email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className={`${errors.email && style.borderError} ${style.formGroupBorder}`} />
+          <input
+            type="email"
+            placeholder="Enter your email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={`${errors.email && style.borderError} ${style.formGroupBorder}`}
+          />
           {errors.email && <p className={style.error}>{errors.email}</p>}
         </div>
         <div className={style.formGroup}>
           <label htmlFor="password">Password</label>
-          <input type="password" placeholder="***********" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className={`${errors.password && style.borderError} ${style.formGroupBorder}`} />
+          <input
+            type="password"
+            placeholder="***********"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={`${errors.password && style.borderError} ${style.formGroupBorder}`}
+          />
           {errors.password && <p className={style.error}>{errors.password}</p>}
         </div>
         <button type="submit" className={style.signUpButton}>
