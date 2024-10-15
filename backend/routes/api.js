@@ -238,6 +238,7 @@ route.get("/get_bot_response/:botId", async (req, res) => {
 
 //check auth via jwt
 function checkAuth(req, res, next) {
+  console.log('c', req.cookies)
   const token = req.cookies.tokenId;
   console.log('token: ', token);
   if (!token) return res.status(401).json({msg: "Unauthorized"});
