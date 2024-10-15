@@ -7,7 +7,6 @@ export const loginSlice = createSlice({
   },
   reducers: {
     storeIsLogin: (state, action) => {
-      console.log(action.payload)
       state.isLogin = action.payload;
     },
   },

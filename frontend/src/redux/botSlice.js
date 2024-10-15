@@ -7,7 +7,6 @@ export const botSlice = createSlice({
   },
   reducers: {
     setBot: (state, action) => {
-      console.log(action.payload)
       localStorage.setItem('storeBot', JSON.stringify(action.payload))
       state.data = action.payload;
     },

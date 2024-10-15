@@ -13,21 +13,16 @@ import {setBotUpdate} from "../../redux/botUpdateSlice";
 
 const ThemePage = ({botDetails, isBotSaved}) => {
   const updateData = useSelector((store) => store?.botUpdateReducer?.updateData);
-  console.log(updateData);
   const arrData = JSON.parse(localStorage.getItem("storeBot"));
   const [theme, setTheme] = useState(updateData.theme);
-  console.log("theme: ", theme);
   const dispatch = useDispatch();
 
   const themeHandler = (themeName) => {
     setTheme(themeName);
-    console.log(themeName);
     if (isBotSaved) {
-      console.log(updateData);
         dispatch(setBotUpdate({...updateData, theme: themeName}));
     }
     if (arrData) {
-      console.log(arrData);
       arrData.theme = themeName;
       localStorage.setItem("storeBot", JSON.stringify(arrData));
       dispatch(setBot(arrData));
@@ -36,7 +31,6 @@ const ThemePage = ({botDetails, isBotSaved}) => {
 
   useEffect(() => {
     if (isBotSaved) {
-      console.log(updateData);
       if (updateData) {
         setTheme(updateData.theme);
       }

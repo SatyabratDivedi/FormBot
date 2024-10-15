@@ -20,7 +20,6 @@ const ChatBot = () => {
   const tokenId = Cookies.get('tokenId');
   
   const saveBotResponseFn = async () => {
-    console.log(param.botId);
     try {
       const res = await fetch(`https://form-bot-backend1.vercel.app/api/bot_response_save/${param.botId}`, {
         method: "POST",
@@ -31,9 +30,7 @@ const ChatBot = () => {
         credentials: "include",
         body: JSON.stringify({responses}),
       });
-      console.log(res);
       const result = await res.json();
-      console.log(result.formId);
       if (res.ok) {
         setFormId(result.formId);
         setShowCongrats(true);
@@ -49,7 +46,6 @@ const ChatBot = () => {
       const result = await res.json();
       setBotArray(result?.botArr);
       setBotDetail(result);
-      console.log(result);
     } catch (error) {
       console.error("Error fetching bot details:", error);
     }

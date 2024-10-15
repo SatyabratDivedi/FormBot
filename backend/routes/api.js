@@ -214,7 +214,6 @@ route.delete("/bot_delete/:botId", checkAuth, async (req, res) => {
     const findBot = await botModel.findByIdAndDelete(req.params.botId);
     if (!findBot) return res.status(404).json({msg: "Bot not found"});
     const findFolder = await folderModel.findOne({folderName: req.body.folderName, whichUser: req.loginUser._id});
-    console.log("findFolder: ", findFolder);
     findFolder.allBots = findFolder.allBots.filter((botId) => botId.toString() !== req.params.botId);
     await findFolder.save();
     return res.status(200).json({msg: "Bot deleted Successfully"});

@@ -7,7 +7,6 @@ export const botUpdateSlice = createSlice({
   },
   reducers: {
     setBotUpdate: (state, action) => {
-      console.log(action.payload)
       state.updateData = action.payload;
     },
   },

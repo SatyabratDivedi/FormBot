@@ -23,19 +23,14 @@ import Cookies from 'js-cookie';
 
 const BotPage = ({isBotSaved, skeleton, botDetails}) => {
   const tokenId = Cookies.get('tokenId');
-  console.log("isBotSaved: ", isBotSaved);
   const updateData = useSelector((store) => store?.botUpdateReducer?.updateData);
-  console.log(updateData);
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const mainFolder = location.pathname.split("/")[2];
   let botName = decodeURI(location.pathname.split("/")[4]);
-  console.log("botName: ", botName);
   const localData = JSON.parse(localStorage.getItem("storeBot"));
-  console.log(localData);
   const [botArr, setBotArr] = useState(updateData.botArr);
-  console.log(botArr);
   const [botData, setBotData] = useState({botName: "", theme: "light", botArr});
 
   const fetchFolderFn = useCallback(async () => {
@@ -47,15 +42,10 @@ const BotPage = ({isBotSaved, skeleton, botDetails}) => {
         },
         credentials: "include",
       });
-      console.log(res);
       const result = await res.json();
-      console.log(result);
       if (res.ok) {
-        console.log(updateData?.botName);
-        console.log(botName);
         if (Object.keys(updateData)?.length == 0) {
           setBotArr(result.botArr);
-          console.log(result);
           dispatch(setBotUpdate(result));
         }
       } else {
@@ -68,6 +58,7 @@ const BotPage = ({isBotSaved, skeleton, botDetails}) => {
   }, [mainFolder, botName]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (isBotSaved) fetchFolderFn();
   }, [fetchFolderFn]);
 
@@ -94,19 +85,15 @@ const BotPage = ({isBotSaved, skeleton, botDetails}) => {
     if (!isBotSaved) {
       const data = {...botData, botArr};
       data.botName = localData.botName || "";
-      console.log(data);
       dispatch(setBot(data));
     } else {
       const updatedData = {...updateData, botArr};
-      console.log(updatedData);
       dispatch(setBotUpdate(updatedData));
     }
   }, [botArr, botData]);
 
   useEffect(() => {
-    console.log(localData);
     if (!isBotSaved) {
-      console.log(localData.botArr);
       setBotArr(localData.botArr || []);
       setBotData({
         botName: localData.botName || "",

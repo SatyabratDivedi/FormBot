@@ -25,7 +25,6 @@ const ResponsePage = () => {
         credentials: "include",
       });
       const result = await res.json();
-      console.log(result.botResponse);
       if (res.ok) {
         setResponseData(result.botResponse);
         setSkeleton(false);
@@ -47,19 +46,14 @@ const ResponsePage = () => {
   };
 
   const giveFirstQuestion = (botArr) => {
-    console.log(botArr[0].type, botArr[0].value);
     const findFirstAnswerBot = botArr.find((bot) => bot.category == "Bubble");
     return findFirstAnswerBot.value;
   };
 
   const giveFirstAnswer = (botArr) => {
-    console.log(botArr[0].type, botArr[0].value);
     const findFirstAnswerBot = botArr.find((bot) => bot.category == "Input");
     return findFirstAnswerBot.value;
   };
-
-  console.log(responseData[3]?.botResponseArr);
-
   const showResponseDetails = (data) => {
     setShowDataDetails(data?.botResponseArr);
     setShowPopUp(true);

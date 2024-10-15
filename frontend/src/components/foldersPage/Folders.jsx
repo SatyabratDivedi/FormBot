@@ -30,7 +30,6 @@ const Folders = () => {
       alert("Folder name is already exists");
       return;
     }
-    console.log("first");
     setFoldersArr([...foldersArr, {folderName: folderName.trim()}]);
     setShowCreateFolder(false);
     saveFolderFn();
@@ -55,12 +54,10 @@ const Folders = () => {
       } else {
         setUserName(result.user.name);
         setFoldersArr(result.allFolder);
-        console.log(result.allFolder);
         setSkeleton(false);
       }
     } catch (error) {
       toast.error(error.message, {duration: 1000});
-      console.log(error.message);
       navigate("/");
     }
   }, [navigate]);
@@ -70,7 +67,6 @@ const Folders = () => {
   }, [fetchFolderFn]);
 
   const saveFolderFn = async () => {
-    console.log("first");
     try {
       await fetch("https://form-bot-backend1.vercel.app/api/create_folder", {
         method: "POST",
@@ -98,8 +94,6 @@ const Folders = () => {
         },
         credentials: "include",
       });
-      const data = await res.json();
-      console.log(data);
     } catch (error) {
       toast.error(error.message, {duration: 400});
     }

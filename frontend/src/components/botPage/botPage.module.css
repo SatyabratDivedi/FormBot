@@ -116,6 +116,15 @@ textarea {
   min-height: 40px;
 }
 
+.botBox input{
+  background-color: rgb(34, 34, 34);
+  border: none;
+  width: 100%;
+  resize: none;
+  font-size: 16px;
+  overflow: auto;
+}
+
 .botBox .deleteBtn {
   position: absolute;
   top: -5px;

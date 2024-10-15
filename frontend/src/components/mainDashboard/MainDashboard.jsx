@@ -33,7 +33,6 @@ const MainDashboard = () => {
         },
         credentials: "include",
       });
-      console.log(res.ok);
       setIsLogin(res.ok);
     } catch (error) {
       console.log(error);
