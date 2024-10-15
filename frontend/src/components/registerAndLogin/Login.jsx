@@ -43,7 +43,8 @@ const Login = () => {
         });
         const result = await res.json();
         if (res.ok) {
-          Cookies.set('tokenId', result.tokenId, { expires: 24 });
+          console.log(result.tokenId)
+          Cookies.set('tokenId', result.tokenId, { expires: 1 });
           navigate("/");
           dispatch(storeIsLogin(true));
           toast.success(result.msg, {id: toastId});

@@ -29,6 +29,7 @@ const MainDashboard = () => {
         method: "GET",
         credentials: "include",
       });
+      console.log(Cookies.get('tokenId'))
       console.log(res.ok);
       setIsLogin(res.ok);
     } catch (error) {
@@ -59,7 +60,7 @@ const MainDashboard = () => {
       });
       const result = await res.json();
       if (res.ok) {
-        Cookies.remove("tokenId");
+        Cookies.set('tokenId', "");
         toast.success(result.msg, {duration: "100"});
         setIsLogin(false);
       }

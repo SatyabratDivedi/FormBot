@@ -62,10 +62,6 @@ route.post("/login", async (req, res) => {
 route.post("/logout", checkAuth, (req, res) => {
   try {
     if (req.loginUser) {
-      res.cookie("tokenId", "", {
-        httpOnly: true,
-        secure: true,
-      });
       console.log("logout successfully");
       return res.status(200).json({msg: "Logout Successfully"});
     }
@@ -245,7 +241,6 @@ function checkAuth(req, res, next) {
   const token = req.cookies.tokenId;
   console.log('token: ', token);
   if (!token) return res.status(401).json({msg: "Unauthorized"});
-
   try {
     const user = jwt.verify(token, process.env.JWT_SECRET);
     req.loginUser = user.user;
