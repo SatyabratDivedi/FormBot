@@ -19,8 +19,10 @@ import {setBot} from "../../redux/botSlice";
 import Skeleton, {SkeletonTheme} from "react-loading-skeleton";
 import {setBotUpdate} from "../../redux/botUpdateSlice";
 import toast from "react-hot-toast";
+import Cookies from 'js-cookie';
 
 const BotPage = ({isBotSaved, skeleton, botDetails}) => {
+  const tokenId = Cookies.get('tokenId');
   console.log("isBotSaved: ", isBotSaved);
   const updateData = useSelector((store) => store?.botUpdateReducer?.updateData);
   console.log(updateData);
@@ -40,6 +42,9 @@ const BotPage = ({isBotSaved, skeleton, botDetails}) => {
     try {
       const res = await fetch(`https://form-bot-backend1.vercel.app/api/bot_details/${mainFolder}/${botName}`, {
         method: "GET",
+        headers: {
+          'Authorization': tokenId,
+        },
         credentials: "include",
       });
       console.log(res);

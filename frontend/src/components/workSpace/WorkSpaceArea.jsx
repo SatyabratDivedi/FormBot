@@ -9,8 +9,10 @@ import BotPage from "../botPage/BotPage";
 import ThemePage from "../themePage/ThemePage";
 import ResponsePage from "../responsePage/ResponsePage";
 import {setBotUpdate} from "../../redux/botUpdateSlice";
+import Cookies from 'js-cookie';
 
 const WorkSpaceArea = ({isBotSaved}) => {
+  const tokenId = Cookies.get('tokenId');
   const param = useParams();
   const {folderName, botName, botId} = param;
   const data = useSelector((store) => store?.botReducer?.data);
@@ -38,6 +40,7 @@ const WorkSpaceArea = ({isBotSaved}) => {
       const res = await fetch("https://form-bot-backend1.vercel.app/api/save_bot", {
         method: "POST",
         headers: {
+          "Authorization": tokenId,
           "Content-Type": "application/json",
         },
         credentials: "include",
@@ -80,6 +83,9 @@ const WorkSpaceArea = ({isBotSaved}) => {
     try {
       const res = await fetch("https://form-bot-backend1.vercel.app/api/get_folder_details", {
         method: "GET",
+        headers: {
+          "Authorization": tokenId,
+        },
         credentials: "include",
       });
       const result = await res.json();
@@ -109,6 +115,7 @@ const WorkSpaceArea = ({isBotSaved}) => {
       const res = await fetch(`https://form-bot-backend1.vercel.app/api/bot_update/${botId}`, {
         method: "PATCH",
         headers: {
+          "Authorization": tokenId,
           "Content-Type": "application/json",
         },
         credentials: "include",
@@ -144,6 +151,7 @@ const WorkSpaceArea = ({isBotSaved}) => {
       const res = await fetch(`https://form-bot-backend1.vercel.app/api/bot_delete/${botId}`, {
         method: "DELETE",
         headers: {
+          "Authorization": tokenId,
           "Content-Type": "application/json",
         },
         credentials: "include",

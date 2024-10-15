@@ -33,7 +33,7 @@ const Login = () => {
       setErrors({});
       const toastId = toast.loading("Verifying....");
       try {
-        const res = await fetch("http://localhost:3000/api/login", {
+        const res = await fetch("https://form-bot-backend1.vercel.app/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -43,7 +43,6 @@ const Login = () => {
         });
         const result = await res.json();
         if (res.ok) {
-          console.log(result.tokenId)
           Cookies.set('tokenId', result.tokenId, { expires: 1 });
           navigate("/");
           dispatch(storeIsLogin(true));

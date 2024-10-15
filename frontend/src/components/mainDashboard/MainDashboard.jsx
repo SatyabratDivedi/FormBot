@@ -22,11 +22,15 @@ import Cookies from 'js-cookie';
 const MainDashboard = () => {
   const [isLogin, setIsLogin] = useState();
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-
+  
+  const tokenId = Cookies.get('tokenId');
   const fetchFolderFn = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/isLoginCheck", {
+      const res = await fetch("https://form-bot-backend1.vercel.app/api/isLoginCheck", {
         method: "GET",
+        headers: {
+          'Authorization': tokenId,
+        },
         credentials: "include",
       });
       console.log(res.ok);
@@ -53,6 +57,7 @@ const MainDashboard = () => {
       const res = await fetch("https://form-bot-backend1.vercel.app/api/logout", {
         method: "POST",
         headers: {
+          'Authorization': tokenId,
           "Content-Type": "application/json",
         },
         credentials: "include",

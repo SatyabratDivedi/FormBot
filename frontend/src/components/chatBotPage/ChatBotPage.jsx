@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import styles from "./chatBotPage.module.css";
 import {FiSend} from "react-icons/fi";
 import {useParams} from "react-router-dom";
+import Cookies from 'js-cookie';
 
 const ChatBot = () => {
   const [botArray, setBotArray] = useState([]);
@@ -16,13 +17,15 @@ const ChatBot = () => {
   const [showCongrats, setShowCongrats] = useState(false);
   const [formId, setFormId] = useState();
   const param = useParams();
-
+  const tokenId = Cookies.get('tokenId');
+  
   const saveBotResponseFn = async () => {
     console.log(param.botId);
     try {
       const res = await fetch(`https://form-bot-backend1.vercel.app/api/bot_response_save/${param.botId}`, {
         method: "POST",
         headers: {
+          'Authorization': tokenId,
           "Content-Type": "application/json",
         },
         credentials: "include",

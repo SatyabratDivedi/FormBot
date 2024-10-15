@@ -9,8 +9,10 @@ import Folders_skeleton from "./Folders_skeleton";
 import icon from "./../../assets/icon.png";
 import {setBotUpdate} from "../../redux/botUpdateSlice";
 import {useDispatch} from "react-redux";
+import Cookies from 'js-cookie';
 
 const Folders = () => {
+  const tokenId = Cookies.get('tokenId');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showCreateFolder, setShowCreateFolder] = useState(false);
@@ -39,6 +41,9 @@ const Folders = () => {
     try {
       const res = await fetch("https://form-bot-backend1.vercel.app/api/get_folder_details", {
         method: "GET",
+        headers: {
+          'Authorization': tokenId,
+        },
         credentials: "include",
       });
       const result = await res.json();
@@ -70,6 +75,7 @@ const Folders = () => {
       await fetch("https://form-bot-backend1.vercel.app/api/create_folder", {
         method: "POST",
         headers: {
+          'Authorization': tokenId,
           "Content-Type": "application/json",
         },
         credentials: "include",
@@ -87,6 +93,9 @@ const Folders = () => {
     try {
       const res = await fetch(`https://form-bot-backend1.vercel.app/api/delete_folder/${folderId}`, {
         method: "DELETE",
+        headers: {
+          'Authorization': tokenId,
+        },
         credentials: "include",
       });
       const data = await res.json();

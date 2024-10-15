@@ -5,8 +5,10 @@ import toast from "react-hot-toast";
 import {useParams} from "react-router-dom";
 import {RxCross2} from "react-icons/rx";
 import Skeleton, {SkeletonTheme} from "react-loading-skeleton";
+import Cookies from 'js-cookie';
 
 const ResponsePage = () => {
+  const tokenId = Cookies.get('tokenId');
   const param = useParams();
   const [responseData, setResponseData] = useState([]);
   const [skeleton, setSkeleton] = useState(true);
@@ -17,6 +19,9 @@ const ResponsePage = () => {
     try {
       const res = await fetch(`https://form-bot-backend1.vercel.app/api/get_bot_response/${param.botId}/`, {
         method: "GET",
+        headers: {
+          'Authorization': tokenId,
+        },
         credentials: "include",
       });
       const result = await res.json();
