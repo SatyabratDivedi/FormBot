@@ -131,7 +131,7 @@ const WorkSpaceArea = ({isBotSaved}) => {
   }, [fetchFolderFn]);
   const shareBotHandler = () => {
     navigator.clipboard
-      .writeText(`http://localhost:5173/share_bot/${botId}`)
+      .writeText(`https://form-bot.skdivedi.me/share_bot/${botId}`)
       .then(() => toast.success("share link copied"))
       .catch(() => toast.error("something error"));
   };
