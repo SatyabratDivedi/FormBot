@@ -41,8 +41,6 @@ route.post("/login", async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
-        domain: 'form-bot.skdivedi.me',
-        path: '/',
       });
       if (findFirstFolder.length == 0) {
         try {
